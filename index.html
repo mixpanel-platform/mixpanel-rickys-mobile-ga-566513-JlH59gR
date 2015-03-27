@@ -8,7 +8,6 @@
   <body class="mixpanel-platform-body">
     <div class="mixpanel-platform-section">
       <div id="intervalSelect" style="float: left;"></div>
-      <div id="interval" class="mixpanel-platform-label" style="margin-left: 10px;">interval</div>
       <div id="propSelect" style="float: left;"></div>
       <div id="dateSelect" style="float: right;"></div>
       <div style="clear: both;"></div>
@@ -36,9 +35,7 @@
           from: moment().subtract(1, 'months'),
           to: moment(),
           limit: 200,                             // maximum number of results to return
-          length: 1                             // number of days each user has to complete the funnel
-          //where: 'properties["age"] == 21',       // an expression to filter by.
-          //segment: '$browser'                     // a segmentation expression or event property.
+          unit: 'day'
         };
 
         var runQuery = function() {
@@ -53,7 +50,7 @@
           funnelResults = {};
           
           if(intervalSelect){
-            MP.api.funnel("App Open", "Character Created", "Game Played", params).done(function(results) {
+            MP.api.funnel("App Open", "Game Played", "In-App Purchase", params).done(function(results) {
               console.log(results);
               processResults(results, funnelResults, params['from']);
               //eventTable.MPTable('setData', results);
@@ -64,7 +61,9 @@
         var processResults = function(results, newResults, from) {
           var dates = Object.keys(results[0]);
           for(j=0; j<dates.length; j++) {
+            debugger
             //newResults[dates[j]] = 0;
+            console.log(results[eventsNum-1])
             newResults[dates[j]] = (results[eventsNum-1][dates[j]]['count'] / results[0][dates[j]]['count']) * 100;
           }
           finalResults = {};
