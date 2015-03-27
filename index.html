@@ -30,7 +30,7 @@
         
         var intervalPicker = $('#intervalSelect').MPSelect(options);
         
-        var eventsNum = 2;
+        var eventsNum = 3;
         
         var params = {
           from: moment().subtract(1, 'months'),
@@ -53,7 +53,7 @@
           funnelResults = {};
           
           if(intervalSelect){
-            MP.api.funnel("$signup", "Item Won", params).done(function(results) {
+            MP.api.funnel("App Open", "Character Created", "Game Played", params).done(function(results) {
               console.log(results);
               processResults(results, funnelResults, params['from']);
               //eventTable.MPTable('setData', results);
