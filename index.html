@@ -39,7 +39,7 @@
         };
 
         var runQuery = function() {
-          //var eventName = eventSelect.MPEventSelect('value'),
+          // var eventName = eventSelect.MPEventSelect('value'),
           //    propName  = propSelect.MPPropertySelect('value'),
           var dateRange = dateSelect.MPDatepicker('value'),
               interval = intervalPicker.MPSelect('value');
@@ -50,6 +50,8 @@
           funnelResults = {};
           
           if(intervalSelect){
+            // Add the events in the funnel here, if you have a filter on any step of the funnel use
+            // { event: 'App Open', selector: 'properties["age"] == 21' }
             MP.api.funnel("App Open", "Game Played", "In-App Purchase", params).done(function(results) {
               console.log(results);
               processResults(results, funnelResults, params['from']);
@@ -61,12 +63,10 @@
         var processResults = function(results, newResults, from) {
           var dates = Object.keys(results[0]);
           for(j=0; j<dates.length; j++) {
-            console.log(results[eventsNum-1])
             newResults[dates[j]] = Math.floor((results[eventsNum-1][dates[j]]['count'] / results[0][dates[j]]['count']) * 10000) / 100;
           }
           finalResults = {};
           finalResults['Conversions'] = newResults;
-          console.log(newResults);
           eventGraph.MPChart('setData', finalResults);
         };
         
