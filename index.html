@@ -6,6 +6,44 @@
     <script src="https://cdn.mxpnl.com/libs/mixpanel-platform/build/mixpanel-platform.v0.latest.min.js"></script>
   </head>
   <body class="mixpanel-platform-body">
+    <style>
+      body {
+        color: #5c617b;
+      }
+      .events_label, .funnel-query-description {
+        font-weight: bold;
+        font-size: 15px;
+        margin-right: 8px;
+        display: inline-block;
+      }
+      .date_select.inline.block, .event_select.inline.block, .right-arrow, #add {
+        display: inline-block;
+        vertical-align: middle;
+      }
+      .event_select.inline.block {
+        max-width: 200px;
+        margin: 10px 0;
+      }
+      .dates {
+        margin-bottom: 20px;
+      }
+      .right-arrow {
+      	background: url(//cdn.mxpnl.com/cache/0a836ac387413f8cfa0ac97c5618c8bf/images/reports/arrow-dropshadow.png) no-repeat;
+      	background-position: 0 0;
+      	height: 10px;
+      	width: 10px;
+      	margin: 10px;
+      }
+      #add {
+      	background: url(https://cdn.mxpnl.com/cache/db85795727e3c42d2865a215cd85876a/images/reports/funnels3/new_row_spritesheet.png);
+      	width: 30px;
+      	height: 30px;
+      	cursor: pointer;
+      	position: relative;
+      	margin-left: 15px;
+      }
+
+    </style>
     <div class="mixpanel-platform-section">
       <div id="intervalSelect" style="float: left;"></div>
       <div id="propSelect" style="float: left;"></div>
