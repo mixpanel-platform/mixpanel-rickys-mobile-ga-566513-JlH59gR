@@ -145,7 +145,7 @@
           var finalResults = { Conversions: {} };
           _.each(dates, function(date){
             finalResults['Conversions'][date] = Math.floor((results[results.length - 1][date]['count'] / results[0][date]['count']) * 10000) / 100;
-          }
+          })
           eventGraph.MPChart('setData', finalResults);
         };
         
