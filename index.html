@@ -112,7 +112,7 @@
           var eventList = []
           $events = $('.event_select')
           _.each($events, function(el){
-            if (el.val != null) eventList.push(el.val)
+            if (el.val != null) eventList.push({event: el.val})
           })
           
           // var eventName = eventSelect.MPEventSelect('value'),
