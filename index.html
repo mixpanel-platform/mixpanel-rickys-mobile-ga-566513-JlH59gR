@@ -131,7 +131,8 @@
           if(intervalSelect){
             // Add the events in the funnel here, if you have a filter on any step of the funnel use
             // { event: 'App Open', selector: 'properties["age"] == 21' }
-            MP.api.funnel(eventList, params).done(function(results) {
+          eventList.push(params);
+          MP.api.funnel.apply(MP.api, events).done(function(results) {
               console.log(results);
               processResults(results, funnelResults, params['from']);
               //eventTable.MPTable('setData', results);
