@@ -11,10 +11,15 @@
       <div id="propSelect" style="float: left;"></div>
       <div id="dateSelect" style="float: right;"></div>
       <div style="clear: both;"></div>
+      <div id="events">
+        <div class="events_label">Funnel Steps:</div>
+        <div id="add"></div>
+      </div>
+
       <div id="graph"></div>
     </div>
     <script>
-      MP.api.ready(function() {
+      $(document).ready(function() {
         var dateSelect  = $('#dateSelect').MPDatepicker();
         var eventGraph  = $('#graph').MPChart({chartType: 'line'});
         
@@ -31,6 +36,32 @@
         
         var eventsNum = 3;
         
+        // add events
+        var $events = $('#events');
+        var $add = $('#events').find('#add');
+        
+        function addEvent(i) {
+          if (i > 0) {
+            $('<div class="right-arrow"></div>').insertBefore($add);
+          }
+          var eventSelect = $('<div class="event_select inline block" id="' + i + '"></div>').insertBefore($add).MPEventSelect();
+        }
+        function resetEvents() {
+          // clear event dropdowns
+          $('.event_select').remove();
+          $('.right-arrow').remove();
+          addEvent(0);
+        }
+  
+        $(document).ready(function() {
+          addEvent(0);
+        });
+        $('#add').on('click', function() {
+          var numEvents = $('.event_select').length;
+          addEvent(numEvents);
+        });
+
+        
         var params = {
           from: moment().subtract(1, 'months'),
           to: moment(),
@@ -39,6 +70,16 @@
         };
 
         var runQuery = function() {
+          
+          var eventList = [];
+          for (var i = 0, j = $('.event_select').length; i < j; i++) {
+            var eventName = $($('.event_select')[i]).val();
+            if (eventName != null) {
+              eventList.push(eventName);
+            }
+          }
+          eventList = eventList.join(', ');
+          
           // var eventName = eventSelect.MPEventSelect('value'),
           //    propName  = propSelect.MPPropertySelect('value'),
           var dateRange = dateSelect.MPDatepicker('value'),
@@ -52,7 +93,7 @@
           if(intervalSelect){
             // Add the events in the funnel here, if you have a filter on any step of the funnel use
             // { event: 'App Open', selector: 'properties["age"] == 21' }
-            MP.api.funnel("App Open", "Game Played", "In-App Purchase", params).done(function(results) {
+            MP.api.funnel(eventList, params).done(function(results) {
               console.log(results);
               processResults(results, funnelResults, params['from']);
               //eventTable.MPTable('setData', results);
