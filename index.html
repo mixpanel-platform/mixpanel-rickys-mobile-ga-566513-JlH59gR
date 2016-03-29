@@ -109,13 +109,11 @@
 
         var runQuery = function() {
           
-          var eventList = [];
-          for (var i = 0, j = $('.event_select').length; i < j; i++) {
-            var eventName = $($('.event_select')[i]).val();
-            if (eventName != null) {
-              eventList.push(eventName);
-            }
-          }
+          var eventList
+          $events = $('.event_select')
+          _.each($events, function(el){
+            if (el.val() != null) eventList.push(el.val())
+          })
           
           // var eventName = eventSelect.MPEventSelect('value'),
           //    propName  = propSelect.MPPropertySelect('value'),
