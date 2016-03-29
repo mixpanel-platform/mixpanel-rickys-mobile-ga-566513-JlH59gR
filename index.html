@@ -109,10 +109,10 @@
 
         var runQuery = function() {
           
-          var eventList
+          var eventList = []
           $events = $('.event_select')
           _.each($events, function(el){
-            if (el.val() != null) eventList.push(el.val())
+            if (el.val != null) eventList.push(el.val)
           })
           
           // var eventName = eventSelect.MPEventSelect('value'),
@@ -125,11 +125,11 @@
           params['length'] = interval;
           funnelResults = {};
           
-          if(intervalSelect){
+          if(intervalSelect && eventList){
             // Add the events in the funnel here, if you have a filter on any step of the funnel use
             // { event: 'App Open', selector: 'properties["age"] == 21' }
             eventList.push(params);
-            MP.api.funnel.apply(MP.api, events).done(function(results) {
+            MP.api.funnel.apply(MP.api, eventList).done(function(results) {
                 console.log(results);
                 processResults(results, funnelResults, params['from']);
                 //eventTable.MPTable('setData', results);
